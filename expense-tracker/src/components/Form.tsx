@@ -56,19 +56,6 @@ function Form({onSubmit}: Props) {
                     </div>
                 </div>
                 <button className="btn btn-primary" type="submit">Submit</button>
-                <div className="mb-3">
-                    <label htmlFor="category" className="form-label">
-                        Category    
-                    </label>
-                    <div className="mb-3">
-                        <select name="category" id="category">
-                            <option value="all-categories">All Categories</option>
-                            <option value="groceries">Groceries</option>
-                            <option value="utilities">Utilities</option>
-                            <option value="entertainment">Entertainment</option>
-                        </select>
-                    </div>
-                </div>
             </form>
         </>
     )

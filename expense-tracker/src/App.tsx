@@ -14,21 +14,26 @@ interface obj {
 function App() {
 
   const [items, setItems] = useState<obj[]>([])
+  const [category, setCategory] = useState("all-categories")
 
   const handleSubmit = (item: obj) => {
     setItems([...items, item])
   }
 
-  const handleDelete = (object: obj) => {
+  const handleDelete = (id: number) => {
     setItems(items.filter(item => {
-      return item.id !== object.id 
+      return item.id !== id 
     }))
+  }
+
+  const handleSelect = (item: string) => {
+    setCategory(item)
   }
 
   return (
     <>
       <Form onSubmit={handleSubmit}/>
-      <Table items={items} onDelete={handleDelete}/>
+      <Table items={items} category={category} onDelete={handleDelete} onSelect={handleSelect}/>
     </>
   )
 }
