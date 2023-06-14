@@ -9,9 +9,10 @@ interface obj {
 
 interface Props {
     items: obj[]
+    onDelete: (item: obj) => void
 }
 
-function Table({items}: Props) {
+function Table({items, onDelete}: Props) {
     return (
         <>
             <table>
@@ -29,7 +30,7 @@ function Table({items}: Props) {
                                 <td>{item.description}</td>
                                 <td>{item.amount}</td>
                                 <td>{item.category}</td>
-                                <td><button className="btn btn-danger">Delete</button></td>
+                                <td><button onClick={() => onDelete(item)} className="btn btn-danger">Delete</button></td>
                             </tr>
                         )
                     })}

@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       <Form onSubmit={handleSubmit}/>
-      <Table items={items}/>
+      <Table items={items} onDelete={handleDelete}/>
     </>
   )
 }
