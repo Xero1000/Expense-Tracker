@@ -1,19 +1,31 @@
-import { FormEvent, useRef } from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { FieldValues } from "react-hook-form/dist/types"
 
+interface obj {
+    id: number
+    description: string
+    amount: number
+    category: string
+  }
+
 interface Props {
-    onSubmit: (item: object) => void
+    onSubmit: (item: obj) => void
 }
 
 function Form({onSubmit}: Props) {
 
     const { register, handleSubmit } = useForm()
+    const [id, setId] = useState(1)
 
-    const item = {description: "", amount: 0, category: ""}
+    const item = {id: id, description: "", amount: 0, category: ""}
 
     const submit = (data: FieldValues) => {
-        onSubmit(data)
+        item.description = data.description
+        item.amount = data.amount 
+        item.category = data.category
+        onSubmit(item)
+        setId(id + 1)
     }
 
     return (

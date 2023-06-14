@@ -1,7 +1,14 @@
 import styles from "./Table.module.css"
 
+interface obj {
+    id: number
+    description: string
+    amount: number
+    category: string
+  }
+
 interface Props {
-    items: object[]
+    items: obj[]
 }
 
 function Table({items}: Props) {
@@ -18,10 +25,11 @@ function Table({items}: Props) {
                 <tbody>
                     {items.map(item => {
                         return (
-                            <tr>
+                            <tr key={item.id}>
                                 <td>{item.description}</td>
                                 <td>{item.amount}</td>
                                 <td>{item.category}</td>
+                                <td><button className="btn btn-danger">Delete</button></td>
                             </tr>
                         )
                     })}

@@ -4,12 +4,25 @@ import './App.css'
 import Form from './components/Form'
 import Table from './components/Table'
 
+interface obj {
+  id: number
+  description: string
+  amount: number
+  category: string
+}
+
 function App() {
 
-  const [items, setItems] = useState<object[]>([])
+  const [items, setItems] = useState<obj[]>([])
 
-  const handleSubmit = (item: object) => {
+  const handleSubmit = (item: obj) => {
     setItems([...items, item])
+  }
+
+  const handleDelete = (object: obj) => {
+    setItems(items.filter(item => {
+      return item.id !== object.id 
+    }))
   }
 
   return (
