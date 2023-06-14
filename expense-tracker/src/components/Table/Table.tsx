@@ -1,6 +1,10 @@
 import styles from "./Table.module.css"
 
-function Table() {
+interface Props {
+    items: object[]
+}
+
+function Table({items}: Props) {
     return (
         <>
             <table>
@@ -11,6 +15,17 @@ function Table() {
                         <th>Category</th>
                     </tr>
                 </thead>
+                <tbody>
+                    {items.map(item => {
+                        return (
+                            <tr>
+                                <td>{item.description}</td>
+                                <td>{item.amount}</td>
+                                <td>{item.category}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
             </table>
         </>
     )

@@ -1,4 +1,6 @@
 import { FormEvent, useRef } from "react"
+import { useForm } from "react-hook-form"
+import { FieldValues } from "react-hook-form/dist/types"
 
 interface Props {
     onSubmit: (item: object) => void
@@ -6,46 +8,35 @@ interface Props {
 
 function Form({onSubmit}: Props) {
 
-    const descriptionRef = useRef<HTMLInputElement>(null)
-    const amountRef = useRef<HTMLInputElement>(null)
-    const categoryRef = useRef<HTMLSelectElement>(null)
+    const { register, handleSubmit } = useForm()
+
     const item = {description: "", amount: 0, category: ""}
 
-    const handleSubmit = (event: FormEvent) => {
-        event.preventDefault()
-        if (descriptionRef.current !== null) {
-            item.description = descriptionRef.current.value
-        }
-        if (amountRef.current !== null) {
-            item.amount = parseFloat(amountRef.current.value)
-        }
-        if (categoryRef.current !== null) {
-            item.category = categoryRef.current.value
-        }
-        console.log(item)
+    const submit = (data: FieldValues) => {
+        onSubmit(data)
     }
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(submit)}>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">
                         Description
                     </label>
-                    <input ref={descriptionRef} id="description" type="text" className="form-control" />
+                    <input {...register("description")} id="description" type="text" className="form-control" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="amount" className="form-label">
                         Amount
                     </label>
-                    <input ref={amountRef} id="amount" type="text" className="form-control" />
+                    <input {...register("amount")} id="amount" type="text" className="form-control" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">
                         Category    
                     </label>
                     <div className="mb-3">
-                        <select ref={categoryRef} name="category" id="category">
+                        <select {...register("category")} name="category" id="category">
                             <option value="groceries">Groceries</option>
                             <option value="utilities">Utilities</option>
                             <option value="entertainment">Entertainment</option>
