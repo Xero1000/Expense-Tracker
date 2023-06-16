@@ -15,7 +15,7 @@ interface Props {
 
 function Form({onSubmit}: Props) {
 
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const [id, setId] = useState(1)
 
     const item = {id: id, description: "", amount: 0, category: ""}
@@ -35,13 +35,15 @@ function Form({onSubmit}: Props) {
                     <label htmlFor="description" className="form-label">
                         Description
                     </label>
-                    <input {...register("description")} id="description" type="text" className="form-control" />
+                    <input {...register("description", { minLength: 3 })} id="description" type="text" className="form-control" />
+                    {errors.description?.type === "minLength" && <p className="text-danger">Description should be at least 3 characters.</p>}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="amount" className="form-label">
                         Amount
                     </label>
-                    <input {...register("amount")} id="amount" type="text" className="form-control" />
+                    <input {...register("amount", { required: true })} id="amount" type="text" className="form-control" />
+                    {errors.amount?.type === "required" && <p className="text-danger">Amount is required.</p>}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">

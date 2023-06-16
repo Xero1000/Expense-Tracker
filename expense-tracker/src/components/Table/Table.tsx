@@ -1,4 +1,5 @@
-import styles from "./Table.module.css"
+import { useState } from "react"
+import "./Table.css"
 
 interface obj {
     id: number
@@ -10,17 +11,16 @@ interface obj {
 interface Props {
     items: obj[]
     category: string
-    onDelete: (id: number) => void
+    total: number
+    onDelete: (item: obj) => void
     onSelect: (item: string) => void
 }
 
-function Table({items, category, onDelete, onSelect}: Props) {
+function Table({items, category, total, onDelete, onSelect}: Props) {
+
     return (
         <>
-            <div className="mb-3">
-                <label htmlFor="category" className="form-label">
-                    Category    
-                </label>
+            <div className="mb-3 mt-3">
                 <div className="mb-3">
                     <select onChange={(event) => onSelect(event.target.value)} name="category" id="category">
                         <option value="all-categories">All Categories</option>
@@ -30,13 +30,15 @@ function Table({items, category, onDelete, onSelect}: Props) {
                     </select>
                 </div>
             </div>
-            <table>
+            <table className="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Category</th>
-                    </tr>
+                    {items.length > 0 && 
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                        </tr>
+                    }                    
                 </thead>
                 <tbody>
                     {items.map(item => {
@@ -46,11 +48,15 @@ function Table({items, category, onDelete, onSelect}: Props) {
                                     <td>{item.description}</td>
                                     <td>{item.amount}</td>
                                     <td>{item.category}</td>
-                                    <td><button onClick={() => onDelete(item.id)} className="btn btn-danger">Delete</button></td>
+                                    <td><button onClick={() => onDelete(item)} className="btn btn-danger">Delete</button></td>
                                 </tr>
                             )
                         }
                     })}
+                    {/* <tr>
+                        <td>Total</td>
+                        <td>{total}</td>
+                    </tr> */}
                 </tbody>
             </table>
         </>

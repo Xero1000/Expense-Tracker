@@ -15,15 +15,18 @@ function App() {
 
   const [items, setItems] = useState<obj[]>([])
   const [category, setCategory] = useState("all-categories")
+  const [total, setTotal] = useState(0)
 
   const handleSubmit = (item: obj) => {
     setItems([...items, item])
+    setTotal(total + item.amount)
   }
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (object: obj) => {
     setItems(items.filter(item => {
-      return item.id !== id 
+      return item.id !== object.id
     }))
+    setTotal(total - object.amount)
   }
 
   const handleSelect = (item: string) => {
@@ -33,7 +36,7 @@ function App() {
   return (
     <>
       <Form onSubmit={handleSubmit}/>
-      <Table items={items} category={category} onDelete={handleDelete} onSelect={handleSelect}/>
+      <Table items={items} category={category} total={total} onDelete={handleDelete} onSelect={handleSelect}/>
     </>
   )
 }
